@@ -1,6 +1,6 @@
 {
   "name": "kist-loader-maps",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Google Maps plugin for kist-loader.",
   "author": "Ivan Nikolić",
   "license": "MIT",

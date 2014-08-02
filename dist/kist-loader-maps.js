@@ -1,4 +1,4 @@
-/*! kist-loader-maps 0.0.0 - Google Maps plugin for kist-loader. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-loader-maps 0.1.0 - Google Maps plugin for kist-loader. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, loader, undefined ) {
 
 	var now = $.now();
