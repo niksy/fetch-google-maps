@@ -8,50 +8,38 @@ Convenient Google Maps loader for [kist-loader](https://github.com/niksy/kist-lo
 bower install niksy/kist-loader-maps
 ```
 
-### API
+## API
 
-#### `.loadGmaps(options, [success])`
+### `.loadGmaps(options, [success])`
 
-##### options
+#### options
 
 Type: `Object`  
 *Required*
 
-###### apiKey
+##### apiKey
 
 Type: `String`
 
 Your project’s API key
 
-###### plugins
+##### plugins
 
 Type: `String|Array`
 
 Google Maps plugins such as Infobox.
 
-###### language
+##### language
 
 Type: `String`
 
 Language for Google Maps UI.
 
-###### libraries
+##### libraries
 
 Type: `String`
 
 Google Maps libraries such as Geometry
-
-###### success
-
-Type: `Function`
-
-Callback after everything has been successfully loaded.
-
-###### error
-
-Type: `Function`
-
-Callback if (some) resources haven’t successfully loaded.
 
 ##### success
 
@@ -59,7 +47,19 @@ Type: `Function`
 
 Callback after everything has been successfully loaded.
 
-### Examples
+##### error
+
+Type: `Function`
+
+Callback if (some) resources haven’t successfully loaded.
+
+#### success
+
+Type: `Function`
+
+Callback after everything has been successfully loaded.
+
+## Examples
 
 ```js
 $.kist.loader
