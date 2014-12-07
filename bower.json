@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "Google Maps plugin for kist-loader.",
   "authors": [
-    "Ivan Nikolić"
+    "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)"
   ],
   "license": "MIT",
-  "main": "dist/kist-loader-maps.min.js",
+  "main": "dist/kist-loader-maps.js",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "jquery": ">=1",
-    "kist-loader": "niksy/kist-loader#~0.4.3"
+    "kist-loader": "niksy/kist-loader#~0.4.6"
   },
   "devDependencies": {
     "jquery": "1",
@@ -29,6 +29,11 @@
   "homepage": "https://github.com/niksy/kist-loader-maps",
   "keywords": [
     "loader",
-    "maps"
+    "maps",
+    "browserify"
+  ],
+  "moduleType": [
+    "amd",
+    "globals"
   ]
 }

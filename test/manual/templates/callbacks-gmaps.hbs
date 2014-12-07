@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Callbacks Google Maps</title>
-	<style>
-		.sandbox {
-			width:500px; height:500px;
-		}
-	</style>
-</head>
-<body>
+{{> top title="Callbacks Google Maps"}}
 
 	<button type="button" class="gmaps-done">Load Google Maps, with plugins, callback as argument</button>
 	<button type="button" class="gmaps-done-optcb">Load Google Maps, with plugins, callback in object</button>
@@ -33,9 +22,6 @@
 
 	<div class="sandbox"></div>
 
-	<script src="../bower_components/jquery/dist/jquery.js"></script>
-	<script src="../bower_components/kist-loader/dist/kist-loader.js"></script>
-	<script src="../src/kist-loader-maps.js"></script>
 	<script>
 
 		function successCb () {
@@ -58,10 +44,12 @@
 			boxText.style.cssText = 'border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;';
 			boxText.innerHTML = 'Testing…';
 
-			var ib = new InfoBox({
-				content: boxText
-			});
-			ib.open(map, marker);
+			if ( 'InfoBox' in window ) {
+				var ib = new InfoBox({
+					content: boxText
+				});
+				ib.open(map, marker);
+			}
 
 		}
 
@@ -76,7 +64,7 @@
 
 			$.kist.loader
 				.loadGmaps({
-					plugins: [ '../bower_components/gmaps-infobox/index.js', '../bower_components/gmaps-maplabel/index.js' ],
+					plugins: [ '{{bower}}/gmaps-infobox/index.js', '{{bower}}/gmaps-maplabel/index.js' ],
 					language: 'en',
 					libraries: 'geometry'
 				}, successCb);
@@ -87,7 +75,7 @@
 
 			$.kist.loader
 				.loadGmaps({
-					plugins: [ '../bower_components/gmaps-infobox/index.js', '../bower_components/gmaps-maplabel/index.js' ],
+					plugins: [ '{{bower}}/gmaps-infobox/index.js', '{{bower}}/gmaps-maplabel/index.js' ],
 					language: 'en',
 					libraries: 'geometry',
 					success: successCb
@@ -99,7 +87,7 @@
 
 			$.kist.loader
 				.loadGmaps({
-					plugins: [ '../bower_components/gmaps-infobox/index.js', '../bower_components/gmaps-maplabel/index.js' ],
+					plugins: [ '{{bower}}/gmaps-infobox/index.js', '{{bower}}/gmaps-maplabel/index.js' ],
 					language: 'en',
 					libraries: 'geometry',
 					success: successCb
@@ -149,7 +137,7 @@
 
 			$.kist.loader
 				.loadGmaps({
-					plugins: [ '../bower_components/gmaps-infobox/index.js', 'y.js' ],
+					plugins: [ '{{bower}}/gmaps-infobox/index.js', 'y.js' ],
 					language: 'en',
 					libraries: 'geometry'
 				})
@@ -161,7 +149,7 @@
 
 			$.kist.loader
 				.loadGmaps({
-					plugins: [ '../bower_components/gmaps-infobox/index.js', 'y.js' ],
+					plugins: [ '{{bower}}/gmaps-infobox/index.js', 'y.js' ],
 					language: 'en',
 					libraries: 'geometry',
 					error: errorCb
@@ -173,7 +161,7 @@
 
 			$.kist.loader
 				.loadGmaps({
-					plugins: [ '../bower_components/gmaps-infobox/index.js', 'y.js' ],
+					plugins: [ '{{bower}}/gmaps-infobox/index.js', 'y.js' ],
 					language: 'en',
 					libraries: 'geometry',
 					error: errorCb
@@ -189,10 +177,7 @@
 					language: 'en',
 					libraries: 'geometry'
 				})
-				.done(function(){
-					console.log( 'Done' );
-					console.log( arguments );
-				})
+				.done(successCb)
 				.fail(errorCb);
 
 		});
@@ -203,10 +188,7 @@
 				.loadGmaps({
 					language: 'en',
 					libraries: 'geometry',
-					success: function () {
-						console.log( 'Done' );
-						console.log( arguments );
-					}
+					success: successCb
 				});
 
 		});
@@ -217,28 +199,16 @@
 				.loadGmaps({
 					language: 'en',
 					libraries: 'geometry',
-					success: function () {
-						console.log( 'Done' );
-						console.log( arguments );
-					}
-				}, function () {
-					console.log( 'Done' );
-					console.log( arguments );
-				})
-				.done(function () {
-					console.log( 'Done' );
-					console.log( arguments );
-				});
+					success: successCb
+				}, successCb)
+				.done(successCb);
 
 		});
 
 		$('.gmaps-done-basic').on('click', function () {
 
 			$.kist.loader
-				.loadGmaps(null, function(){
-					console.log( 'Done' );
-					console.log( arguments );
-				});
+				.loadGmaps(null, successCb);
 
 		});
 
@@ -246,10 +216,7 @@
 
 			$.kist.loader
 				.loadGmaps({
-					success: function(){
-						console.log( 'Done' );
-						console.log( arguments );
-					}
+					success: successCb
 				});
 
 		});
@@ -258,22 +225,12 @@
 
 			$.kist.loader
 				.loadGmaps({
-					success: function(){
-						console.log( 'Done' );
-						console.log( arguments );
-					}
-				}, function(){
-					console.log( 'Done' );
-					console.log( arguments );
-				})
-				.done(function(){
-					console.log( 'Done' );
-					console.log( arguments );
-				});
+					success: successCb
+				}, successCb)
+				.done(successCb);
 
 		});
 
 	</script>
 
-</body>
-</html>
+{{> bottom}}

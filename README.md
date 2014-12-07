@@ -5,7 +5,9 @@ Convenient Google Maps loader for [kist-loader](https://github.com/niksy/kist-lo
 ## Installation
 
 ```sh
-bower install niksy/kist-loader-maps
+npm install kist-loader-maps --save
+
+bower install niksy/kist-loader-maps --save
 ```
 
 ## API
@@ -62,16 +64,25 @@ Callback after everything has been successfully loaded.
 ## Examples
 
 ```js
-$.kist.loader
-	.loadGmaps({
-		apiKey: 'YOUR_API_KEY',
-		plugins: [ 'infobox.js', 'maplabel.js' ],
-		language: 'en',
-		libraries: 'geometry'
-	})
-	.done(function () {
-		console.log( 'Google Maps loaded!' );
-	});
+var loadGmaps = require('kist-loader-maps');
+
+loadGmaps({
+	apiKey: 'YOUR_API_KEY',
+	plugins: [ 'infobox.js', 'maplabel.js' ],
+	language: 'en',
+	libraries: 'geometry'
+})
+.done(function () {
+	console.log( 'Google Maps loaded!' );
+});
+```
+
+### AMD and global
+
+```js
+define(['kist-loader-maps'], cb);
+
+window.$.kist.loader.loadGmaps;
 ```
 
 ## Browser support
