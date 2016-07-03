@@ -20,6 +20,16 @@ describe('options', function () {
 			});
 	});
 
+	it('throws if version lower than 3 is provided', function () {
+		return fn({
+			apiKey: 'foo',
+			version: 2
+		})
+			.catch(function ( err ) {
+				assert.equal(err instanceof Error, true);
+			});
+	});
+
 });
 
 describe('class', function () {

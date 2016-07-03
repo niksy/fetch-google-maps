@@ -4,6 +4,7 @@ var qs = require('querystring');
 var now = require('date-now');
 var extend = require('xtend');
 var load = require('little-loader');
+var MIN_VERSION = 3;
 
 /**
  * Declare internal resolve function, pass google.maps for the Promise resolve
@@ -30,6 +31,7 @@ module.exports = function ( options ) {
 
 		// Global callback name
 		var callbackName = '__kistLoaderMaps_' + now();
+		var version = options.version || MIN_VERSION;
 
 		// Default Parameters
 		var params = {
@@ -42,13 +44,17 @@ module.exports = function ( options ) {
 			throw new Error('Google Maps API key is not provided.');
 		}
 
+		if ( typeof version !== 'undefined' && version < MIN_VERSION ) {
+			throw new Error('Only Google Maps v' + MIN_VERSION + ' and higher is supported.');
+		}
+
 		// If google.maps exists, then Google Maps API was probably loaded with the <script> tag
 		if ( window.google && window.google.maps ) {
 			internalResolve(resolve);
 
 		// If the google.load method exists, lets load the Google Maps API in Async.
 		} else if ( window.google && window.google.load ) {
-			window.google.load('maps', 3, {
+			window.google.load('maps', version, {
 				'other_params': qs.stringify(params),
 				callback: function () {
 					internalResolve(resolve);
@@ -59,8 +65,9 @@ module.exports = function ( options ) {
 		} else {
 
 			// URL params
-			params = extend({}, params, {
-				v: 3,
+			params = extend({
+				v: version
+			}, params, {
 				callback: callbackName
 			});
 

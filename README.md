@@ -16,7 +16,7 @@ npm install kist-loader-maps --save
 var loadMaps = require('kist-loader-maps');
 
 loadMaps({
-	apiKey: 'YOUR_API_KEY',
+	apiKey: 'YOUR_GOOGLE_API_KEY',
 	language: 'en',
 	libraries: 'geometry'
 }).then(function ( maps ) {
@@ -42,12 +42,19 @@ Type: `Object`
 Type: `String`  
 **Required**
 
-Your project’s [Google API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
+[Google API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
+
+##### version
+
+Type: `Number`  
+Default: `3`
+
+[Google Maps API version](https://developers.google.com/maps/documentation/javascript/versions).
 
 ##### language
 
 Type: `String`  
-Default value: `en`
+Default: `'en'`
 
 [Language](https://developers.google.com/maps/documentation/javascript/localization) for Google Maps UI.
 
