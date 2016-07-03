@@ -1,6 +1,6 @@
 {
   "name": "kist-loader-maps",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Simple maps loader.",
   "main": "index.js",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)",
