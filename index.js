@@ -1,54 +1,94 @@
-var $ = require('jquery');
-var loader = require('kist-loader');
-var loadGoogleMaps = require('./src/load-google-maps');
+/* eslint-disable max-params */
+
+var qs = require('querystring');
+var now = require('date-now');
+var extend = require('xtend');
+var load = require('little-loader');
 
 /**
- * @param  {Object}   options
- * @param  {Function} cb
+ * Declare internal resolve function, pass google.maps for the Promise resolve
+ *
+ * @param  {Function} resolve
+ */
+function internalResolve ( resolve ) {
+	resolve(window.google && window.google.maps ? window.google.maps : false);
+}
+
+/**
+ * @param  {Object} options
+ * @param  {String} options.apiKey
+ * @param  {String} options.language
+ * @param  {String[]} options.libraries
+ * @param  {String} options.sensor
  *
  * @return {Promise}
  */
-function loadGmaps ( options, cb ) {
+module.exports = function ( options ) {
 
-	var dfd = $.Deferred();
 	options = options || {};
 
-	function success () {
-		dfd.resolve.apply(window, arguments);
-		if ( cb ) {
-			cb.apply(window, arguments);
+	return new Promise(function ( resolve, reject ) {
+
+		// Global callback name
+		var callbackName = '__kistLoaderMaps_' + now();
+
+		// Default Parameters
+		var params = {
+			sensor: options.sensor || 'false',
+			key: options.apiKey,
+			language: options.language || 'en',
+			libraries: (options.libraries || []).join(',')
+		};
+
+		if ( typeof options.apiKey === 'undefined' ) {
+			throw new Error('Google Maps API key is not provided.');
 		}
-		if ( options.success ) {
-			options.success.apply(window, arguments);
+
+		// If google.maps exists, then Google Maps API was probably loaded with the <script> tag
+		if ( window.google && window.google.maps ) {
+			internalResolve(resolve);
+
+		// If the google.load method exists, lets load the Google Maps API in Async.
+		} else if ( window.google && window.google.load ) {
+			window.google.load('maps', 3, {
+				'other_params': qs.stringify(params),
+				callback: function () {
+					internalResolve(resolve);
+				}
+			});
+
+		// Last, try pure script loading technique to load the Google Maps API in async.
+		} else {
+
+			// URL params
+			params = extend({}, params, {
+				v: 3,
+				callback: callbackName
+			});
+
+			// Declare the global callback
+			window[callbackName] = function () {
+				internalResolve(resolve);
+
+				// Delete callback
+				setTimeout(function () {
+					try {
+						delete window[callbackName];
+					} catch ( e ) {
+						window[callbackName] = null;
+					}
+				}, 20);
+			};
+
+			load('//maps.googleapis.com/maps/api/js?' + qs.stringify(params), function ( err ) {
+				if ( err ) {
+					reject(err);
+					return;
+				}
+			});
+
 		}
-	}
 
-	function err () {
-		dfd.reject.apply(window, arguments);
-		if ( options.error ) {
-			options.error.apply(window, arguments);
-		}
-	}
+	});
 
-	loadGoogleMaps(options.mapsVersion, options.apiKey, options.language, options.libraries, options.sensor)
-		.done(function () {
-			var args = [].slice.call(arguments);
-			if ( options.plugins ) {
-				loader
-					.load(options.plugins)
-					.done(function () {
-						args.push([].slice.call(arguments));
-						success.apply(window, args);
-					})
-					.fail(err);
-			} else {
-				success.apply(window, args);
-			}
-		})
-		.fail(err);
-
-	return dfd.promise();
-
-}
-
-module.exports = loadGmaps;
+};
