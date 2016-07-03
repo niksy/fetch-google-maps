@@ -44,13 +44,6 @@ Type: `String`
 
 Your project’s [Google API key](https://developers.google.com/maps/documentation/javascript/get-api-key).
 
-##### sensor
-
-Type: `String`  
-Default value: `false`
-
-Sensor property.
-
 ##### language
 
 Type: `String`  

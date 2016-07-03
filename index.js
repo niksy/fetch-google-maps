@@ -19,7 +19,6 @@ function internalResolve ( resolve ) {
  * @param  {String} options.apiKey
  * @param  {String} options.language
  * @param  {String[]} options.libraries
- * @param  {String} options.sensor
  *
  * @return {Promise}
  */
@@ -34,7 +33,6 @@ module.exports = function ( options ) {
 
 		// Default Parameters
 		var params = {
-			sensor: options.sensor || 'false',
 			key: options.apiKey,
 			language: options.language || 'en',
 			libraries: (options.libraries || []).join(',')
