@@ -5,19 +5,27 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>Basic</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-	<style>
-		.sandbox {
-			width:500px; height:500px;
-		}
-	</style>
+	<link rel="stylesheet" href="basic/index.css" />
 </head>
 <body>
+	<div class="Test">
 
-	<button type="button" class="gmaps-done">Load success</button>
-	<button type="button" class="gmaps-fail">Load fail</button>
+		<h1 class="Test-title">fetch-google-maps test</h1>
 
-	<div class="sandbox"></div>
+		<h2 class="Test-describe">Basic</h2>
+		<h3 class="Test-it">Success</h3>
+		<div class="Test-run">
+			<button type="button" class="Action Action--success">Load</button>
+			<div class="Sandbox Sandbox--success"></div>
+		</div>
 
+		<h3 class="Test-it">Fail</h3>
+		<div class="Test-run">
+			<button type="button" class="Action Action--fail">Load</button>
+			<div class="Sandbox Sandbox--fail"></div>
+		</div>
+
+	</div>
 	<script src="basic/index.js"></script>
 </body>
 </html>

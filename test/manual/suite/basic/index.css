@@ -1,0 +1,5 @@
+@import url('suitcss-components-test');
+
+.Sandbox {
+	width:500px; height:500px;
+}

@@ -1,22 +1,24 @@
-var assert = require('assert');
+'use strict';
 
-describe('basic', function () {
+const assert = require('assert');
 
-	it('map element exists', function () {
+describe('fetch-google-maps', function () {
+
+	it('should have map element', function () {
 
 		return browser
 			.url('/basic')
-			.click('.gmaps-done')
-			.pause(1500)
-			.getElementSize('.sandbox').then(function ( size ) {
-				assert.equal(size.width, 500);
-				assert.equal(size.height, 500);
-				return;
-			})
-			.getCssProperty('.sandbox', 'position').then(function ( prop ) {
-				assert.equal(prop.value, 'relative');
-				return;
-			});
+			.click('.Action--success')
+			.pause(5000)
+			.getElementSize('.Sandbox--success')
+				.then(( size ) => {
+					assert.equal(size.width, 500);
+					assert.equal(size.height, 500);
+				})
+			.getCssProperty('.Sandbox--success', 'position')
+				.then(( prop ) => {
+					assert.equal(prop.value, 'relative');
+				});
 
 	});
 

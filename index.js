@@ -1,10 +1,11 @@
 /* eslint-disable max-params */
 
-var qs = require('querystring');
-var now = require('date-now');
-var extend = require('xtend');
-var load = require('little-loader');
-var MIN_VERSION = 3;
+'use strict';
+
+const qs = require('querystring');
+const extend = require('xtend');
+const load = require('little-loader');
+const API_VERSION = 3;
 
 /**
  * Declare internal resolve function, pass google.maps for the Promise resolve
@@ -23,18 +24,18 @@ function internalResolve ( resolve ) {
  *
  * @return {Promise}
  */
-module.exports = function ( options ) {
+module.exports = ( options ) => {
 
 	options = options || {};
 
-	return new Promise(function ( resolve, reject ) {
+	return new Promise(( resolve, reject ) => {
 
 		// Global callback name
-		var callbackName = '__kistLoaderMaps_' + now();
-		var version = options.version || MIN_VERSION;
+		const callbackName = `__fetchGoogleMaps_${Date.now()}`;
+		const version = options.version || API_VERSION;
 
 		// Default Parameters
-		var params = {
+		let params = {
 			key: options.apiKey,
 			language: options.language || 'en',
 			libraries: (options.libraries || []).join(',')
@@ -44,19 +45,17 @@ module.exports = function ( options ) {
 			throw new Error('Google Maps API key is not provided.');
 		}
 
-		if ( typeof version !== 'undefined' && version < MIN_VERSION ) {
-			throw new Error('Only Google Maps v' + MIN_VERSION + ' and higher is supported.');
-		}
-
 		// If google.maps exists, then Google Maps API was probably loaded with the <script> tag
 		if ( window.google && window.google.maps ) {
+
 			internalResolve(resolve);
 
 		// If the google.load method exists, lets load the Google Maps API in Async.
 		} else if ( window.google && window.google.load ) {
+
 			window.google.load('maps', version, {
 				'other_params': qs.stringify(params),
-				callback: function () {
+				callback: () => {
 					internalResolve(resolve);
 				}
 			});
@@ -72,11 +71,11 @@ module.exports = function ( options ) {
 			});
 
 			// Declare the global callback
-			window[callbackName] = function () {
+			window[callbackName] = () => {
 				internalResolve(resolve);
 
 				// Delete callback
-				setTimeout(function () {
+				setTimeout(() => {
 					try {
 						delete window[callbackName];
 					} catch ( e ) {
@@ -85,7 +84,7 @@ module.exports = function ( options ) {
 				}, 20);
 			};
 
-			load('//maps.googleapis.com/maps/api/js?' + qs.stringify(params), function ( err ) {
+			load(`//maps.googleapis.com/maps/api/js?${qs.stringify(params)}`, ( err ) => {
 				if ( err ) {
 					reject(err);
 					return;

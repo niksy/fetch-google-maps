@@ -1,35 +1,37 @@
-# kist-loader-maps
+# fetch-google-maps
 
-[![Build Status][ci-img]][ci] [![Browserstack][browserstack-img]][browserstack]
+[![Build Status][ci-img]][ci] [![BrowserStack Status][browserstack-img]][browserstack]
 
-Simple maps loader. Wrapper around [basic Google Maps fetching][basic-google-maps-fetching].
+Load [Google Maps API][google-maps-api].
 
 ## Install
 
 ```sh
-npm install kist-loader-maps --save
+npm install fetch-google-maps --save
 ```
 
 ## Usage
 
 ```js
-var loadMaps = require('kist-loader-maps');
+const fetchGoogleMaps = require('fetch-google-maps');
 
-loadMaps({
+fetchGoogleMaps({
 	apiKey: 'YOUR_GOOGLE_API_KEY',
 	language: 'en',
-	libraries: 'geometry'
-}).then(function ( maps ) {
-	var map = new maps.Map(document.getElementById('map'), {
+	libraries: ['geometry']
+}).then(( Maps ) => {
+	const map = new Maps.Map(document.getElementById('map'), {
 		zoom: 8,
-		center: new maps.LatLng(-34.397, 150.644)
+		center: new Maps.LatLng(-34.397, 150.644)
 	});
 });
 ```
 
+More usage examples.
+
 ## API
 
-### loadMaps(options)
+### fetchGoogleMaps(options)
 
 Returns: `Promise`
 
@@ -66,21 +68,30 @@ List of [Google Maps libraries](https://developers.google.com/maps/documentation
 
 ## Test
 
-For manual tests, run `npm test -- --watch` and open <http://localhost:9000/> in your browser.
+You need to have process variable `OSS_GOOGLE_API_KEY` set.
+
+For local automated tests, run `npm run test:automated:local`.
+
+For local integration tests, run `npm run test:integration:local`.
+
+For manual tests, run `npm run test:manual:local` and open <http://localhost:9000/> in your browser.
 
 ## Browser support
 
-Tested in IE8+ and all modern browsers.
+Tested in IE9+ and all modern browsers. Uses Promises so you need to apply [polyfill][promise-polyfill].
 
-Uses Promises so you need to apply [polyfill][promise-polyfill].
+## Acknowledgments
+
+* Wrapper around [basic Google Maps fetching][basic-google-maps-fetching].
 
 ## License
 
 MIT © [Ivan Nikolić](http://ivannikolic.com)
 
-[ci]: https://travis-ci.org/niksy/kist-loader-maps
-[ci-img]: https://img.shields.io/travis/niksy/kist-loader-maps.svg
+[ci]: https://travis-ci.org/niksy/fetch-google-maps
+[ci-img]: https://travis-ci.org/niksy/fetch-google-maps.svg?branch=master
 [browserstack]: https://www.browserstack.com/
-[browserstack-img]: https://cdn.rawgit.com/niksy/c73069b66d20e2e0005dc8479c125fbd/raw/f644159e3f5f07291f98f59a44146735e9962e0d/browserstack.svg
+[browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=RGhpWUE4L2ZEeFlJK3c2MEczYmFmOVUzTExqY3VaVDFaVkZyZjRCbFBGUT0tLUJlRUhiajBpS1VGZFNFaU1XdVRKU2c9PQ==--d2f9e67e34833c7263b15c40b6e3a56ce5772cbd
 [basic-google-maps-fetching]: https://gist.github.com/GFoley83/5953448
 [promise-polyfill]: https://github.com/calvinmetcalf/lie
+[google-maps-api]: https://developers.google.com/maps/documentation/javascript/tutorial

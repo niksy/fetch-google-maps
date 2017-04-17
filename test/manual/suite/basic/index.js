@@ -1,22 +1,23 @@
-var $ = require('jquery');
-var fn = require('../../../../index.js');
+'use strict';
+
+const fn = require('../../../../index');
 require('lie/polyfill');
 
-function successCb ( maps ) {
+function successCb ( Maps ) {
 
-	var map = new maps.Map($('.sandbox')[0], {
+	const map = new Maps.Map(document.querySelector('.Sandbox'), {
 		zoom: 8,
-		center: new maps.LatLng(-34.397, 150.644)
+		center: new Maps.LatLng(-34.397, 150.644)
 	});
 
-	var marker = new maps.Marker({
+	const marker = new Maps.Marker({
 		map: map,
-		position: new maps.LatLng(-34.397, 150.644),
+		position: new Maps.LatLng(-34.397, 150.644),
 		visible: true
 	});
 
 	console.log('Done');
-	console.log(maps);
+	console.log(Maps);
 
 }
 
@@ -25,7 +26,7 @@ function errorCb ( err ) {
 	console.log(err);
 }
 
-$('.gmaps-done').on('click', function () {
+document.querySelector('.Action--success').addEventListener('click', () => {
 
 	fn({
 		apiKey: process.env.OSS_GOOGLE_API_KEY
@@ -33,12 +34,12 @@ $('.gmaps-done').on('click', function () {
 		.then(successCb)
 		.catch(errorCb);
 
-});
+}, false);
 
-$('.gmaps-fail').on('click', function () {
+document.querySelector('.Action--fail').addEventListener('click', () => {
 
 	fn()
 		.then(successCb)
 		.catch(errorCb);
 
-});
+}, false);
