@@ -70,8 +70,6 @@ You need to have process variable `OSS_GOOGLE_API_KEY` set.
 
 For local automated tests, run `npm run test:automated:local`.
 
-For local integration tests, run `npm run test:integration:local`.
-
 For manual tests, run `npm run test:manual:local` and open <http://localhost:9000/> in your browser.
 
 ## Browser support
