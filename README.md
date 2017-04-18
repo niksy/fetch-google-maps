@@ -27,8 +27,6 @@ fetchGoogleMaps({
 });
 ```
 
-More usage examples.
-
 ## API
 
 ### fetchGoogleMaps(options)
